@@ -1,0 +1,35 @@
+<table style="height: 100%" class="container">
+  <tbody>
+    <tr>
+      <td class="align-middle text-center">
+        <form (keyup.enter)="loginUser()">
+          <h3>Login</h3>
+          <div>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Username" [(ngModel)]="loginUserData.username"/>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" name="pass" [(ngModel)]="loginUserData.password"/>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>              
+            </mat-form-field>
+          </p>
+
+          <button
+            mat-stroked-button
+            color="primary"
+          >
+            Login
+          </button>
+        </div>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
