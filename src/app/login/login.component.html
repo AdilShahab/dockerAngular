@@ -8,7 +8,7 @@
           <p>
             <mat-form-field appearance="outline">
               <mat-label>Username</mat-label>
-              <input matInput placeholder="Username" [(ngModel)]="loginUserData.username"/>
+              <input matInput placeholder="Username" name="username" [(ngModel)]="loginUserData.username"/>
               <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
           </p>
@@ -24,6 +24,7 @@
           <button
             mat-stroked-button
             color="primary"
+            (click)="loginUser()"
           >
             Login
           </button>

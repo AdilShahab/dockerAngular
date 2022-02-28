@@ -24,26 +24,25 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   loginUser() {
-    this.logins.forEach((element: any) => {
-      console.log(element);
       console.log(this.loginUserData);
-      if (
-        element.USERNAME == this.loginUserData.username &&
-        element.PASSWORD == this.loginUserData.password
-      ) {
-        console.log('Signed In');
-        var user = {
-          USERNAME: element.username,
-          PASSWORD: element.password,
-        };
-        sessionStorage.setItem('type', element.LOGIN_TYPE);
-        
-        this.router.navigate(['/organization']);
-
-      } else {
-        this.response = 'Failed to Sign in';
-        console.log('Failed to Sign in');
-      }
-    });
+      this.logins.forEach((element: any) => {
+        console.log(element);
+        console.log(this.loginUserData);
+        if (
+          element.USERNAME == this.loginUserData.username &&
+          element.PASSWORD == this.loginUserData.password
+        ) {
+          console.log('Signed In');
+          var user = {
+            USERNAME: element.username,
+            PASSWORD: element.password,
+          };
+          console.log(user);
+          this.router.navigate(['/home']);
+        } else {
+          this.response = 'Failed to Sign in';
+          console.log('Failed to Sign in');
+        }
+      });
   }
 }
