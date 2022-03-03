@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -20,9 +24,16 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, NewTaskComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    NewTaskComponent,
+    ItemComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +46,10 @@ import { NewTaskComponent } from './new-task/new-task.component';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

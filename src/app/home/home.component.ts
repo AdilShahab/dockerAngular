@@ -1,5 +1,12 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Item } from '../Models/item';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-home',
@@ -7,21 +14,65 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  @ViewChild('userDialogTemplate')
+  DialogContentExampleDialog!: TemplateRef<any>;
 
+  from: any = 'Adil Shahab';
+
+  constructor(public dialog: MatDialog, private taskService: TasksService) {}
+
+  newTask = {
+    id: 3,
+    from: 'Ali',
+    itemId: 2,
+    details: 'Hello Ali',
+    dateTime: '03-03-2022',
+    assignedTo: 'Ali rehman',
+    status: 'todo',
+  };
   ngOnInit(): void {
+    this.getTodoList();
+    this.getInProgressList();
+    this.getDoneList();
+
+    // this.taskService.AddNewTask(this.newTask);
+    // this.taskService.DeleteTask(this.newTask);
+    // this.taskService.UpdateTask(this.newTask);
+    // this.UpdateTask(this.newTask);
   }
-  todo = ['Get to work'];
-  inProgress = [''];
-  done = ['Get up'];
 
-  getTodoList() {}
+  todo: any;
+  inProgress: any;
+  done: any;
 
-  getInProgressList() {}
+  getTodoList() {
+    this.todo = this.taskService.gettodoTasks().subscribe((data) => {
+      this.todo = data;
+      // console.log(data);
+    });
+  }
 
-  getDoneList() {}
+  getInProgressList() {
+    this.taskService.getInProgressTasks().subscribe((data) => {
+      this.inProgress = data;
+      // console.log(data);
+    });
+  }
 
-  drop(event: CdkDragDrop<string[]>) {
+  getDoneList() {
+    this.taskService.getDoneTasks().subscribe((data) => {
+      this.done = data;
+      // console.log(data);
+    });
+  }
+
+  UpdateTask(item: Item, status:string) {
+    item.status = status;
+    this.taskService.UpdateTask(item);
+  }
+
+  drop(event: CdkDragDrop<string[]>, cont: string) {
+    // console.log("Current Index: "+ event.currentIndex);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -35,10 +86,32 @@ export class HomeComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      if (cont == 'todo') {
+        // Update todo
+        this.UpdateTask(
+          JSON.parse(JSON.stringify(event.container.data[0])),
+          'todo'
+        );
+      } else if (cont == 'inProg') {
+        // Update InProg
+        this.UpdateTask(
+          JSON.parse(JSON.stringify(event.container.data[0])),
+          'inprogress'
+        );
+      } else if (cont == 'done') {
+        // Update done
+        this.UpdateTask(JSON.parse(JSON.stringify(event.container.data[0])), 'done');
+      }
     }
 
-    console.log('todo:' + this.todo);
-    console.log('inProgress:' + this.inProgress);
-    console.log('done:' + this.done);
+    // console.log('todo:' + this.todo);
+    // console.log('inProgress:' + this.inProgress);
+    // console.log('done:' + this.done);
+  }
+
+  @ViewChild('AddTask', { static: true })
+  secondDialog!: TemplateRef<any>;
+  openDialogWithoutRef() {
+    this.dialog.open(this.secondDialog);
   }
 }
