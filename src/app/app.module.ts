@@ -44,7 +44,7 @@ import { ItemComponent } from './item/item.component';
     MatNativeDateModule,
     HttpClientModule,
   ],
-  providers: [AuthGuard],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
