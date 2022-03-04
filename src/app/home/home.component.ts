@@ -3,8 +3,16 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Item } from '../Models/item';
 import { TasksService } from './tasks.service';
 
@@ -17,9 +25,11 @@ export class HomeComponent implements OnInit {
   @ViewChild('userDialogTemplate')
   DialogContentExampleDialog!: TemplateRef<any>;
 
-  from: any = 'Adil Shahab';
-
-  constructor(public dialog: MatDialog, private taskService: TasksService) {}
+  constructor(
+    public dialog: MatDialog,
+    private taskService: TasksService,
+    private router: Router
+  ) {}
 
   newTask = {
     id: 3,
@@ -34,11 +44,6 @@ export class HomeComponent implements OnInit {
     this.getTodoList();
     this.getInProgressList();
     this.getDoneList();
-
-    // this.taskService.AddNewTask(this.newTask);
-    // this.taskService.DeleteTask(this.newTask);
-    // this.taskService.UpdateTask(this.newTask);
-    // this.UpdateTask(this.newTask);
   }
 
   todo: any;
@@ -66,9 +71,27 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  UpdateTask(item: Item, status:string) {
+  UpdateTask(item: Item, status: string) {
     item.status = status;
     this.taskService.UpdateTask(item);
+  }
+
+  AddTaskData = {
+    id: 0,
+    from: '',
+    itemId: 0,
+    details: '',
+    dateTime: '',
+    assignedTo: '',
+    status: 'todo',
+  };
+
+  refresh() {
+    window.location.reload();
+  }
+
+  AddTask1(): any {
+    this.taskService.AddNewTask(this.AddTaskData);
   }
 
   drop(event: CdkDragDrop<string[]>, cont: string) {
@@ -100,7 +123,10 @@ export class HomeComponent implements OnInit {
         );
       } else if (cont == 'done') {
         // Update done
-        this.UpdateTask(JSON.parse(JSON.stringify(event.container.data[0])), 'done');
+        this.UpdateTask(
+          JSON.parse(JSON.stringify(event.container.data[0])),
+          'done'
+        );
       }
     }
 

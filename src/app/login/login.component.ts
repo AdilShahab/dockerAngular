@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     console.log(this.loginUserData);
-    this.router.navigate(['/home']);
+    if(this.loginUserData.username == 'Adil' && this.loginUserData.password == 'uetian1563')
+      this.router.navigate(['/home']);
     // this.logins.forEach((element: any) => {
     //   console.log(element);
     //   console.log(this.loginUserData);

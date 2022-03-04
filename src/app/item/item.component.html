@@ -1,10 +1,11 @@
-<div class="container px-3">
+<div class="container-luid px-3">
   <div class="row">
     <div class="col-lg-2 px-0">
-      <p class="pl-0"
+      <p
+        class="pl-0"
         style="
-        width: 40px;
-        height: 40px;
+          width: 40px;
+          height: 40px;
           background-color: rgb(0, 137, 155);
           padding-left: 15px;
           padding-right: 15px;
@@ -19,11 +20,37 @@
         {{ index }}
       </p>
     </div>
-    <div class="col-lg-10 px-3">
-      <p>From: {{ from }}</p>
-      <p>Assinged to</p>
-      <p>Date & Time</p>
-      <p>Details</p>
+    <div class="col-lg-10 px-0">
+      <table style="width: 300px">
+        <colgroup>
+          <col style="width: 10%" />
+          <col style="width: 40%" />
+        </colgroup>
+        <tr>
+          <td><b>From</b></td>
+          <td>
+            {{ ItemData.from }}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Assigned to</b></td>
+          <td>{{ ItemData.assignedTo }}</td>
+        </tr>
+        <tr>
+          <td><b>Date & Time</b></td>
+          <td>{{ ItemData.dateTime }}</td>
+        </tr>
+        <tr>
+          <td><b>Details</b></td>
+          <td>{{ ItemData.details }}</td>
+        </tr>
+      </table>
+
+      <p class="text-end" *ngIf="ItemData.status == 'done'">
+        <button (click)="DeleteTask()" style="background: transparent; border: none;">
+          <mat-icon style="color: red;">delete</mat-icon>
+        </button>
+      </p>
     </div>
   </div>
 </div>

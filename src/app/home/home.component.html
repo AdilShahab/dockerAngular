@@ -5,6 +5,9 @@
         <button class="btn btn-success" (click)="openDialogWithoutRef()">
           Add Task
         </button>
+        <button class="btn btn-warning mx-2" (click)="refresh()">
+          Refresh
+        </button>
       </p>
     </div>
   </div>
@@ -23,7 +26,7 @@
           *ngFor="let item of todo; let index = index"
           cdkDrag
         >
-          <app-item [from]="from" [index]="index"></app-item>
+          <app-item [ItemData]="item" [index]="index"></app-item>
         </div>
       </div>
     </div>
@@ -41,7 +44,7 @@
           *ngFor="let item of inProgress; let index = index"
           cdkDrag
         >
-          <app-item [from]="from" [index]="index"></app-item>
+          <app-item [ItemData]="item" [index]="index"></app-item>
         </div>
       </div>
     </div>
@@ -59,67 +62,82 @@
           *ngFor="let item of done; let index = index"
           cdkDrag
         >
-          <app-item [from]="from" [index]="index"></app-item>
+          <app-item [ItemData]="item" [index]="index"></app-item>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div>
-  <div class="example-container"></div>
-
-  <div class="example-container"></div>
-
-  <div class="example-container"></div>
-</div>
 
 <ng-template #AddTask>
   <h2 matDialogTitle>Add new task</h2>
-  <mat-dialog-content>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Task from</mat-label>
-        <input matInput placeholder="Task from" name="task_from" />
-        <!-- <mat-icon matSuffix>person</mat-icon> -->
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Assigned to</mat-label>
-        <input matInput placeholder="Assigned to" name="assigned_to" />
-        <!-- <mat-icon matSuffix>person</mat-icon> -->
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Date & Time</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          placeholder="Date & Time"
-          name="date_time"
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <!-- <mat-icon matSuffix>person</mat-icon> -->
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Details</mat-label>
-        <textarea
-          matInput
-          rows="10"
-          placeholder="Details"
-          name="Details"
-        ></textarea>
-      </mat-form-field>
-    </p>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button matDialogClose class="btn btn-warning">
-      <mat-icon class="inline-icon">add_box</mat-icon> Add
-    </button>
-  </mat-dialog-actions>
+  <form>
+    <mat-dialog-content>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Task from</mat-label>
+          <input
+            matInput
+            placeholder="Task from"
+            name="from"
+            [(ngModel)]="AddTaskData.from"
+          />
+          <!-- <mat-icon matSuffix>person</mat-icon> -->
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Assigned to</mat-label>
+          <input
+            matInput
+            placeholder="Assigned to"
+            name="assignedTo"
+            [(ngModel)]="AddTaskData.assignedTo"
+          />
+          <!-- <mat-icon matSuffix>person</mat-icon> -->
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Date & Time</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Date & Time"
+            name="dateTime"
+            [(ngModel)]="AddTaskData.dateTime"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <!-- <mat-icon matSuffix>person</mat-icon> -->
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Details</mat-label>
+          <textarea
+            matInput
+            rows="10"
+            placeholder="Details"
+            name="details"
+            [(ngModel)]="AddTaskData.details"
+          ></textarea>
+        </mat-form-field>
+      </p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button
+        mat-button
+        matDialogClose
+        class="btn btn-warning"
+        (click)="AddTask1()"
+      >
+        <mat-icon class="inline-icon">add_box</mat-icon> Add
+      </button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>

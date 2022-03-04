@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TasksService } from '../home/tasks.service';
+import { Item } from '../Models/item';
 
 @Component({
   selector: 'app-item',
@@ -7,11 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
   @Input() index = 0;
-  @Input() from = '';
-  @Input() assigned_to = '';
-  @Input() date = '';
-  @Input() details = '';
-  constructor() {}
+  @Input() ItemData!: Item;
+  constructor(private taskService: TasksService) {}
 
   ngOnInit(): void {}
+
+  DeleteTask() {
+    this.taskService.DeleteTask(this.ItemData);
+    window.location.reload();
+  }
 }

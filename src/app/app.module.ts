@@ -23,17 +23,10 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NewTaskComponent } from './new-task/new-task.component';
 import { ItemComponent } from './item/item.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    NewTaskComponent,
-    ItemComponent,
-  ],
+  declarations: [AppComponent, LoginComponent, HomeComponent, ItemComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,7 +44,7 @@ import { ItemComponent } from './item/item.component';
     MatNativeDateModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
